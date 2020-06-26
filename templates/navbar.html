@@ -1,0 +1,76 @@
+{% load static from static %}
+
+<nav class="navbar navbar-expand-lg navbar-light bg-light mb-4">
+	<a class="navbar-brand" href="/">
+		<img src="{% static 'logo_wv.png' %}" height="35" class="d-inline-block align-top" alt="">
+	</a>
+	<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+		<span class="navbar-toggler-icon"></span>
+	</button>
+
+	<div class="collapse navbar-collapse" id="navbarSupportedContent">
+		<ul class="navbar-nav mr-auto">
+			<li class="nav-item dropdown">
+			<a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+				<font size="5">
+				<span class="oi oi-project"></span> Client's
+				</font>
+			</a>
+			<div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+				<a class="dropdown-item" href="{% url 'home' %}"><span class="oi oi-graph"></span> List</a>
+					<a class="dropdown-item" href="{% url 'client-create' %}"><span class="oi oi-graph"></span> New Client</a>
+			</div>
+			</li> 
+			
+			<li class="nav-item dropdown">
+			<a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+				<font size="5">
+				<span class="oi oi-project"></span> Sessions
+				</font>
+			</a>
+			<div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+				<a class="dropdown-item" href="{% url 'sessions-list' %}"><span class="oi oi-graph"></span> List</a>
+					<a class="dropdown-item" href="{% url 'event_new' %}"><span class="oi oi-graph"></span> New Session</a>
+			</div>
+			</li> 
+
+			<li>
+			<font size="5">
+			<a class="nav-item nav-link" href="{% url 'calendar' %}">Calendar</a>
+			</font>
+			</li>
+
+			<li class="nav-item dropdown">
+			<a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+				<font size="5">
+				<span class="oi oi-project"></span>  Staff
+				</font>
+			</a>
+			<div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+				<a class="dropdown-item" href="{% url 'staff-list' %}"><span class="oi oi-graph"></span> List</a>
+				<a class="dropdown-item" href="{% url 'register' %}"><span class="oi oi-graph"></span> New Staff</a>
+			</div>
+			</li>
+			
+		</ul>
+
+		<ul class="navbar-nav navbar-right">
+			{% if user.is_authenticated %}
+			<li class="nav-item dropdown">
+			<a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+				<span class="oi oi-person"></span>
+			</a>
+			<div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+				<a class="dropdown-item" href="{% url 'profile' %}"><span class="oi oi-person"></span> My Info</a>
+				<a class="dropdown-item" href="{% url 'logout' %}"><span class="oi oi-account-logout"></span> Logout</a>
+				<a class="dropdown-item" href="/about/"><span class="oi oi-info"></span> About</a>
+			</div>
+			</li>
+			{% else %}
+			<li class="nav-item">
+				<a class="nav-link" href="{% url 'login' %}"><span class="oi oi-account-login"></span> login</a>
+			</li>
+			{% endif %}	
+		</ul>
+	</div>
+</nav>

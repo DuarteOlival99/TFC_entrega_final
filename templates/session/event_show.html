@@ -1,0 +1,75 @@
+{% extends 'base.html' %}
+
+{% block title %}
+Event
+{% endblock title %}
+
+{% block content %}
+<div class="clearfix">
+    <a class="btn btn-info left" href="{% url 'calendar' %}"> Calendar </a>
+</div>
+
+<div class="panel panel-default">
+	<h2 align="center" border-spacing: 10px; >Session {{event.id}} Detail</h2>
+	<div>
+    <form method="post">
+      {% csrf_token %}
+      <table id="table1" class="table table-condensed table-responsive">
+          
+        <tr>
+          <td><b>ID</b></td>
+          <td>{{event.title}}</td>
+        </tr>
+        <tr>
+          <td><b>Time Start</b></td>
+          <td>{{event.start_time}}</td>
+        </tr>
+        <tr>
+          <td><b>Time finished</b></td>
+          <td>{{event.end_time}}</td>
+        </tr>
+        <tr>
+          <td><b>Minutes</b></td>
+          <td>Por fazer</td>
+        </tr>
+        <tr>
+          <td><b>Boat</b></td>
+          <td>{{event.Boat}}</td>
+        </tr>
+        <tr>
+          <td><b>Sport</b></td>
+          <td>{{event.modality}}</td>
+        </tr>
+          <td><b>Driver</b></td>
+          <td>{{event.driver}}</td>
+        </tr>
+        <tr>
+          <td><b>Instructor</b></td>
+          <td>{{event.instructor}}</td>
+        </tr>
+        <tr>
+          <td><b>Cost/h</b></td>
+          <td>{{event.price}}</td>
+        </tr>
+        <tr>
+          <td><b>Total price</b></td>
+          <td>por fazer</td>
+        </tr>
+        <tr>
+          <td><b>Payed</b></td>
+          <td>{{event.get_payed}}</td>
+          </tr>					
+        <tr>
+          <td><b>Comments</b></td>
+          <td>{{event.grades}}</td>
+        </tr>
+        <tr>
+          <td><a class="btn btn-warning" href="{% url 'event_edit' event.id%}"> Edit </a></td>
+          <td><a class="btn btn-info right" href="{% url 'sessions-list' %}">Session List </a></td>
+        </tr>
+          
+      </table>
+    </form>
+  </div>
+</div>
+{% endblock %}

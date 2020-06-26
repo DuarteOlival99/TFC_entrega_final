@@ -1,0 +1,76 @@
+{% extends "base.html" %}
+{% block content %}
+
+<div class="jumbotron text-white rounded bg-grey mt-4">
+	<h1 class="display-4 font-italic centered">List of Staff's</h1>
+	<div class="container">
+		<div style="border: dashed 1px grey;">
+			<form id="myForm"
+				method="GET"
+				class="form-inline"
+				>
+				{% comment %} <div class="form-group">
+					<button class="btn btn-success" type="submit"> Filter</button>
+				</div> {% endcomment %}
+			</form>
+		</div>
+	</div>
+</div>
+
+<div class="row">
+	<div class="col-md-12">
+		<div class="card border rounded shadow-sm mb-4 mt-4">
+			<div class="card-body text-center">
+				<h5 class="car-title mb-2" style="color: blue">Staff</h5>
+				<p class="card-text mb-auto">
+
+					<table class="table">
+						<thead>
+							<tr>
+							<th scope="col">ID</th>
+							<th scope="col">First Name</th>
+							<th scope="col">Last Name</th>
+							<th scope="col">Email</th>
+							<th scope="col">Phone</th>
+							<th scope="col">Driver</th>
+							<th scope="col">Instructor</th>
+							<th scope="col">Edit</th>
+							<th scope="col">Delete</th>
+						</tr>
+						</thead>
+						<tbody>
+
+							{% if profile %}
+								{% for o in profile %}
+							
+								<tr>
+									<td scope="row"><a href="{% url 'staff_show' o.id %}">{{ o.id }}</a></td>
+									<td>{{ o.firstName }}</td>
+									<td>{{ o.lastName }}</td>
+									<td>{{ o.user.email }}</td>
+									<td>{{ o.phone }}</td>
+									<td>{{ o.get_driver }}</td>
+									<td>{{ o.get_instructor }}</td>
+									<td scope="row"><a href="{% url 'staff-edit' o.id %}"><button class="btn btn-warning">Edit</button></a></td>
+									<td scope="row"><a href="{% url 'delete-staff' o.id %}"><button class="btn btn-danger delete">Delete</button></a></td>
+									
+								</tr>
+								
+							{% endfor %}
+							{% else %}
+							<td> </td>
+							<td> </td>
+							<td class="centered"><h3><b><i><u>No Staff Registered</u></i></b></h3></td>
+							<td> </td>
+							{% endif %}
+							
+						</tbody>
+					</table>
+				</p>
+			</div>
+		</div>
+	</div>
+</div>
+
+
+{% endblock %}

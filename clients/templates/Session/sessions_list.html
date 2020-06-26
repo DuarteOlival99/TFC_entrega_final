@@ -1,0 +1,223 @@
+{% extends "base.html" %}
+{% load widget_tweaks %}
+
+{% block content %}
+
+<style>
+	label {
+		padding: 10px;
+	}
+</style>
+
+<div class="jumbotron text-white rounded bg-grey mt-4">
+	<h1 class="display-4 font-italic centered">List of Sessions</h1>
+	<div class="container">
+		<div style="border: dashed 1px grey;">
+			<form id="myForm"
+				method="GET"
+				class="form-inline"
+				data-payed = "{{ request.Get.payed }}"
+				{% comment %} data-urlsessions = "{% url 'sessions_choices_ajax' %}"			  {% endcomment %}
+				>
+
+				<div class="form-group">
+					<label  style="color: blue; font-weight: bold" for="sessionID">Session ID</label>
+					<input type="number" class="form-control" id="sessionID" name="sessionID" placeholder="Session ID">
+				</div>
+				
+				<div class="form-group" style="padding:10px;">
+					<label style="color: blue; font-weight: bold" for="SessionSelect">Session Order</label>
+					{% render_field form.sessionOrder title="Session Order" class="form-control" %}
+				</div>
+				
+				<div class="form-group" style="padding:10px;">
+					<label style="color: blue; font-weight: bold" for="DriverSelect">Driver</label>
+					{% render_field form.driver title="Driver" class="form-control" %}
+				</div>
+
+				<div class="form-group" style="padding:10px;">
+					<label style="color: blue; font-weight: bold" for="InstructorSelect">Instructor</label>
+					{% render_field form.instructor title="Instructor" class="form-control" %}
+				</div>
+				
+				<div class="form-group" style="padding:10px;">
+					<label style="color: blue; font-weight: bold" for="modalitySelect">Modality</label>
+					{% render_field form.modality title="Modality" class="form-control" %}
+				</div>
+
+				<div class="form-group" style="padding:10px;">
+					<label style="color: blue; font-weight: bold" for="boatSelect">Boat</label>
+					{% render_field form.boat title="Boat" class="form-control" %}
+				</div>
+
+				<div class="form-group">
+					<label  style="color: blue; font-weight: bold" for="payedSelect">Payed</label>
+					{% render_field form.payed title="Payed" class="form-control" %}
+				</div>
+
+				<div class="form-group">
+					<label  style="color: blue; font-weight: bold" for="timeSelect">Time</label>
+					{% render_field form.time title="Time" class="form-control" %}
+				</div>
+				
+				{% comment %} <div class="form-group" style="padding:10px;">
+					<label for="citySelect">Cidade</label>
+					<select class="form-control" id="citySelect">
+						<option>---------------------</option>
+					</select>
+				</div>  {% endcomment %}
+
+
+				<div class="form-group">
+					<button class="btn btn-success" type="submit"> Filter</button>
+				</div>
+
+			</form>
+
+		</div>
+	</div>
+</div>
+
+<div class="row">
+	<div class="col-md-12">
+		<div class="card border rounded shadow-sm mb-4 mt-4">
+			<div class="card-body text-center">
+				<h5 class="car-title mb-2 " style="color: blue">Sessions</h5>
+				<p class="card-text mb-auto">
+					<table class="table">
+						<thead>
+							<tr>
+							<th scope="col">ID</th>
+							<th scope="col">Start time</th>
+							<th scope="col">Cliente</th>
+							<th scope="col">Driver</th>
+							<th scope="col">Instructor</th>
+							<th scope="col">Modality</th>
+							<th scope="col">Boat</th>
+							<th scope="col">Time</th>
+							<th scope="col">Payed</th>
+							<th scope="col">Edit</th>
+							<!-- 
+							<th scope="col">Delete</th>
+							-->
+						</tr>
+						</thead>
+						<tbody>
+
+							{% if events %}
+							{% for o in events %}
+							<tr>
+								<td scope="row"><a href="{{ o.get_absolute_url }}">{{ o.id }}</a></td>
+								<td>{{ o.start_time }}</td>	
+								<td>{{ o.client.name }}</td>
+								<td>{{ o.driver.firstName }} {{ o.driver.lastName }}</td>
+								<td>{{ o.instructor.firstName }} {{ o.instructor.lastName }}</td>
+								<td>{{ o.modality.name }}</td>
+								<td>{{ o.boat.name }}</td>
+								<td>{{ o.time }}</td>	
+								<td>{{ o.get_payed }}</td>	
+								<td scope="row"><a href="{{ o.get_absolute_url }}"><button class="btn btn-warning">Edit</button></a></td>
+								<!-- 
+									<td scope="row"><a href="{% url 'session-delete' o.id %}"><button class="btn btn-danger delete">Delete</button></a></td>
+								 -->	
+							</tr>
+							{% endfor %}
+							{% else %}
+							<td> </td>
+							<td> </td>
+							<td> </td>
+							<td class="centered"><h3><b><i><u>No session registered</u></i></b></h3><td>
+							<td> </td>
+							{% endif %}
+						</tbody>
+					</table>
+				</p>
+			</div>
+		</div>
+	</div>
+</div>
+
+{% endblock content%}
+
+{% block js %}
+	
+	<script>
+	/*
+		$(document).ready(function() {
+			let payed = $('#myForm').data('payed');
+			console.log(payed);
+			if (payed) {
+				$('#id_payed option[value='+payed+']').attr('selected', 'selected');
+			}else {
+				console.log("false")
+			}
+		});
+		*/
+	</script>
+
+
+
+	<script>
+		$('#id_payed').change(function() {
+			let urlSessions = $('#myForm').data('urlsessions');
+			let ufIdPayed = $(this).val();
+			
+			/*
+			$.ajax({
+				url: urlSessions,
+				data: {
+					payed: ufIdPayed
+				},
+				success: function(response) {
+					$('#citySelect').html(response);
+				}
+			})
+			*/
+		});
+	</script>
+	
+	<script>
+		$('#id_sessionOrder').change(function() {
+			let ufIdSession = $(this).val();
+			console.log(ufIdSession);
+		});
+	</script>
+	
+	<script>
+		$('#id_modality').change(function() {
+			let ufIdModality = $(this).val();
+			console.log(ufIdModality);
+		});
+	</script>
+
+	<script>
+		$('#id_time').change(function() {
+			let ufIdTime = $(this).val();
+			console.log(ufIdTime);
+		});
+	</script>
+	
+	<script>
+		$('#id_driver').change(function() {
+			let ufIdDriver = $(this).val();
+			console.log(ufIdDriver);
+		});
+	</script>
+
+	<script>
+		$('#id_driver').change(function() {
+			let ufIdDriver = $(this).val();
+			console.log(ufIdDriver);
+		});
+	</script>
+
+	<script>
+		$('#id_instructor').change(function() {
+			let ufIdInstruct = $(this).val();
+			console.log(ufIdInstruct);
+		});
+	</script>
+
+	
+
+{% endblock js %}

@@ -1,0 +1,60 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="jumbotron text-white rounded bg-dark mt-4">
+	<h1 class="display-4 font-italic">{{ client.name }}</h1>
+	<div class="mb-1 text-muted">{{ client.email }}</div>
+	<div class="mb-1 text-muted">Something</div>
+	<div class="mb-1 text-muted">Something</div>
+	<p class="lead my-3">Something</p>
+</div>
+
+<table>
+<tr>
+<th> data</th>
+<th> modalidade </th>
+<th> duracao </th>
+<th> preco </th>
+</tr>
+{% for o in sessions %}
+{%if o.client.name == client.name %}
+<tr>
+<td>{{ o.date }}</td>
+<td>{{ o.modality.name }}</td>
+<td>{{ o.time }}</td>
+<td>{{ o.price }}</td>
+</tr>
+{% endif %}
+{% endfor %}
+</table
+
+<div class="row">
+	<div class="col-md-12">
+		<div class="card border rounded shadow-sm mb-4 mt-4">
+			<div class="card-body text-center">
+				<h5 class="car-title mb-2 text-primary">Clients</h5>
+				<p class="card-text mb-auto">
+
+					<table class="table">
+						<thead>
+							<tr>
+							<th scope="col">modalidade</th>
+							<th scope="col">Data</th>
+						</tr>
+						</thead>
+						<tbody>
+							{% for o in events %}
+							<tr>
+								<td>{{ o.modality.name }}</td>
+								<td>{{ o.start_time }}</td>
+							</tr>
+							{% endfor %}
+						</tbody>
+					</table>
+				</p>
+			</div>
+		</div>
+	</div>
+</div>
+
+{% endblock %}

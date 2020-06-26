@@ -1,0 +1,4 @@
+FROM alpine
+RUN apk add -U mysql-client
+COPY entry.sh .
+CMD ["/bin/sh", "entry.sh"]

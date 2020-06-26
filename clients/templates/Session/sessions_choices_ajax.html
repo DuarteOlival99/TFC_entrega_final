@@ -1,0 +1,4 @@
+<option value="">---------------------</option>
+{% for event in events %}
+  <option value="{{ event.payed }}">{{ event.client }}</option>
+{% endfor %}

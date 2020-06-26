@@ -1,0 +1,149 @@
+{% extends "base.html" %}
+{% load widget_tweaks %}
+{% block content %}
+
+<style>
+	label {
+		padding: 10px;
+	}
+</style>
+
+<div class="jumbotron text-white rounded bg-grey mt-4">
+	<h1 class="display-4 font-italic centered">List of Client's</h1>
+	<div class="container">
+		<div style="border: dashed 1px grey;">
+			<form id="myForm"
+				method="GET"
+				class="form-inline"
+				>
+
+				<div class="form-group">
+					<label  style="color: blue; font-weight: bold" for="clientID">Client ID</label>
+					<input type="number" class="form-control" id="clientID" name="clientID" placeholder="Client ID">
+				</div>
+				
+				<div class="form-group" style="padding:10px;">
+					<label style="color: blue; font-weight: bold" for="SessionSelect">Client Order</label>
+					{% render_field form.idOrder title="Client Order" class="form-control" %}
+				</div>
+				
+				<div class="form-group" style="padding:10px;">
+					<label style="color: blue; font-weight: bold" for="SessionSelect">Balance</label>
+					{% render_field form.balance title="Balance" class="form-control" %}
+				</div>
+
+				<div class="form-group" style="padding:10px;">
+					<label style="color: blue; font-weight: bold" for="SessionSelect">Debt</label>
+					{% render_field form.debt title="Debt" class="form-control" %}
+				</div>
+
+				<div class="form-group" style="padding:10px;">
+					<label style="color: blue; font-weight: bold" for="SessionSelect">Discount</label>
+					{% render_field form.discount title="Discount" class="form-control" %}
+				</div>
+				
+				<div class="form-group">
+					<button class="btn btn-success" type="submit"> Filter</button>
+				</div>
+			</form>
+		</div>
+	</div>
+</div>
+
+<div class="row">
+	<div class="col-md-12">
+		<div class="card border rounded shadow-sm mb-4 mt-4">
+			<div class="card-body text-center">
+				<h5 class="car-title mb-2" style="color: blue">Client's</h5>
+				<p class="card-text mb-auto">
+
+					<table class="table">
+						<thead>
+							<tr>
+							<th scope="col">ID</th>
+							<th scope="col">Name</th>
+							<th scope="col">NIF</th>
+							<th scope="col">Email</th>
+							<th scope="col">Balance €</th>
+							<th scope="col">Debt €</th>
+							<th scope="col">Discount %</th>
+							<!--
+							<th scope="col">Edit</th>
+							<th scope="col">Delete</th>
+							-->
+						</tr>
+						</thead>
+						<tbody>
+
+							{% if clients%}
+								{% for o in clients %}
+							
+								<tr>
+									<td scope="row"><a href="{% url 'client_show' o.id %}">{{ o.id }}</a></td>
+									<td>{{ o.name }}</td>
+									<td>{{ o.nIF }}</td>
+									<td>{{ o.email }}</td>
+									<td>{{ o.balance }}</td>
+									<td>{{ o.debt }}</td>
+									<td>{{ o.discount }}</td>
+									<!--  
+									<td scope="row"><a href="{% url 'client-edit' o.id %}"><button class="btn btn-warning">Edit</button></a></td> 
+									<td scope="row"><a href="{% url 'client-delete' o.id %}"><button class="btn btn-danger delete">Delete</button></a></td>
+									-->
+									
+									
+								</tr>
+								
+							{% endfor %}
+							{% else %}
+							<td> </td>
+							<td> </td>
+							<td> </td>
+							<td class="centered"><h3><b><i><u>No registered customers</u></i></b></h3><td>
+							<td> </td>
+							{% endif %}
+							
+						</tbody>
+					</table>
+				</p>
+			</div>
+		</div>
+	</div>
+</div>
+
+
+{% endblock content%}
+
+
+{% block js %}
+
+	<script>
+		$('#id_idOrder').change(function() {
+			let ufIdSession = $(this).val();
+			console.log(ufIdSession);
+		});
+	</script>
+
+	<script>
+		$('#id_balance').change(function() {
+			let ufIdSession = $(this).val();
+			console.log(ufIdSession);
+		});
+	</script>
+
+	<script>
+		$('#id_debt').change(function() {
+			let ufIdSession = $(this).val();
+			console.log(ufIdSession);
+		});
+	</script>
+
+	<script>
+		$('#id_discount').change(function() {
+			let ufIdSession = $(this).val();
+			console.log(ufIdSession);
+		});
+	</script>
+
+
+{% endblock js %}

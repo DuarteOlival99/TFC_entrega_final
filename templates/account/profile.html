@@ -1,0 +1,25 @@
+{% extends "base.html" %}
+{% load crispy_forms_tags %}
+{% block content %}
+    <div class="content-section">
+      <div class="media">
+        <img class="rounded-circle account-img" src="{{ user.profile.image.url }}">
+        <div class="media-body">
+          <p class="text-secondary"><i><b>Username:</b></i> {{ user.username }}</p>
+          <p class="text-secondary"><i><b>Name:</b></i> {{ user.profile.firstName }} {{ user.profile.lastName }}</p>
+          <p class="text-secondary"><i><b>Email:</b></i> {{ user.email }}</p>
+          <p class="text-secondary"><i><b>Phone:</b></i> {{ user.profile.phone }}</p>
+          <p class="text-secondary"><i><b>Adress:</b></i> {{ user.profile.address }}</p>
+          <p class="text-secondary"><i><b>Birthday:</b></i> {{ user.profile.birthday }}</p>
+        </div>
+        <div>
+          <br>
+          <a class="btn btn-info right" href="{% url 'change_password' %}">Edit password</a>
+          <br>
+          <br>
+          <a class="btn btn-info right" href="{% url 'profile-edit' %}">Edit profile</a>
+          <br>
+        </div>
+      </div>
+    </div>
+{% endblock content %}

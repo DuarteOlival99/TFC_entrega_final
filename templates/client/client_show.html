@@ -1,0 +1,114 @@
+{% extends "base.html" %}
+
+{% block title %}
+Client profile
+{% endblock title %}
+
+{% load crispy_forms_tags %}
+{% block content %}
+{% include "client/add_balance.html" %}
+
+<meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <div>
+    <h3 class="display-4 font-italic centered">Client {{client.name}} profile</h3>
+    <br>
+    <a class="btn btn-info right" href="{% url 'client-edit' client.id%}">Edit Client</a>
+    <a class="btn btn-info right" href="{% url 'home' %}">Client List</a>
+    <br>
+  </div>
+  <br>
+  <div class="content-section">
+    <div class="media">
+      <div class="media-body">
+        <p class="text-secondary"><i><b>ID:</b></i> {{ client.id }}</p>
+        <div>
+          <a class="text-secondary"><i><b>Name:</b></i> {{ client.name }} </a>
+          <a class="text-secondary"><i><b>&emsp;Gender:</b></i> {{ client.gender }} </a>
+          <a class="text-secondary"><i><b>&emsp;Country:</b></i> {{ client.country }} </a>
+          <a class="text-secondary"><i><b>&emsp;Birthday:</b></i> {{ client.birthday }}</a>
+        </div>
+        <br>
+        <div>
+          <a class="text-secondary"><i><b>Email:</b></i> {{ client.email }}</a>
+          <a class="text-secondary"><i><b>&emsp;Phone:</b></i> {{ client.phone }}</a>
+          <a class="text-secondary"><i><b>&emsp;NIF:</b></i> {{ client.nIF }}</a>
+        </div>
+        <br>
+        <p class="text-secondary"><i><b>Grades:</b></i> {{ client.notes }}</p>
+        <div>
+          <a class="text-secondary"><i><b>Balance:</b></i> {{ client.balance }}€</a>
+          <a class="text-secondary"><i><b>&emsp;Debt:</b></i> {{ client.debt }}€</a>
+          <a class="text-secondary"><i><b>&emsp;Discount:</b></i> {{ client.discount }}%</a>
+          <a class="btn btn-success right" type="submit" data-toggle="modal" data-target=".bd-example-modal-sm">Add Balance</a> 
+          <a class="btn btn-success right" type="submit" href="{% url 'pay-sessions' client.id %}">Pay All Session</a> 
+        </div>
+      </div>
+    </div>
+  </div>
+
+  
+<div class="row">
+	<div class="col-md-12">
+		<div class="card border rounded shadow-sm mb-4 mt-4">
+			<div class="card-body text-center">
+				<h5 class="car-title mb-2" style="color: blue">Sessions</h5>
+				<p class="card-text mb-auto">
+					<table class="table">
+						<thead>
+							<tr>
+							<th scope="col">ID</th>
+							<th scope="col">Start time</th>
+							<th scope="col">Price</th>
+							<th scope="col">Driver</th>
+							<th scope="col">Instructor</th>
+							<th scope="col">Modality</th>
+							<th scope="col">Time</th>
+							<th scope="col">Payed</th>
+							<!-- 
+							<th scope="col">Delete</th>
+							-->
+						</tr>
+						</thead>
+						<tbody>
+
+							{% if sessions %}
+                {% for o in sessions %}
+                  {% if o.client.name == client.name %}
+                    <tr>
+                  <td scope="row"><a href="{{ o.get_absolute_url }}">{{ o.id }}</a></td>
+                  <td>{{ o.start_time }}</td>	
+                  <td>{{ o.price }}</td>
+                  <td>{{ o.driver.name }}</td>
+                  <td>{{ o.instructor.name }}</td>
+                  <td>{{ o.modality.name }}</td>
+                  <td>{{ o.time }}</td>	
+                  <td>{{ o.get_payed }}</td>	
+                  <td scope="row"><a href="{{ o.get_absolute_url }}"><button class="btn btn-warning">Edit</button></a></td>
+                  <!-- 
+                    <td scope="row"><a href="{% url 'session-delete' o.id %}"><button class="btn btn-danger delete">Delete</button></a></td>
+                  -->	
+                </tr>
+                  {% endif %}
+                {% endfor %}
+							{% else %}
+                <td> </td>
+                <td> </td>
+                <td> </td>
+                <td class="centered"><h3><b><i><u>Nenhuma sessão registada</u></i></b></h3><td>
+                <td> </td>
+							{% endif %}
+						</tbody>
+					</table>
+				</p>
+			</div>
+		</div>
+	</div>
+</div>
+
+{% endblock content %}
+
+{% block js %}
+
+
+{% endblock js %}
