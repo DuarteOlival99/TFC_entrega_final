@@ -1,5 +1,5 @@
 asgiref==3.2.10
-Django==3.0.3
+Django==3.1.13
 django-bootstrap-form==3.4
 django-countries==6.1.2
 django-crispy-forms==1.9.1
